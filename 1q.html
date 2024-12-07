@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Quiz with Background</title>
+    <style>
+        body {
+            margin: 0; 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background-image: url('BACKGROUND1.jpg'); 
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-position: center; 
+            font-family: Arial, sans-serif;
+        }
+        .question h3 {
+            margin: 0 0 10px;
+            font-weight: bold; 
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold; 
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+   
+      
+    <div class="quiz-container">
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <h3> 1) Who killed Kamsa?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="Kaali"> Kaali</label>
+                    <label><input type="radio" name="q1" value="Krishna"> Krishna</label>
+                </div>
+            </div>
+            
+            
+            <button type="button" class="btn" onclick="calculateScore()">Submit</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateScore() {
+            
+            const correctAnswers = {
+                q1: "Krishna"
+            };
+
+            let score = 0;
+            const form = document.getElementById('quizForm');
+
+            
+            for (let question in correctAnswers) {
+                const userAnswer = form[question].value;
+                if (userAnswer === correctAnswers[question]) {
+                    score++;
+                }
+            }
+
+            
+            setTimeout(function() {
+                window.location.href = 'part1.html'; 
+            }, 2000); 
+        }
+    </script> </b>
+
+     
+</body>
+</html>
+

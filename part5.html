@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Screen Background Image with Centered Picture</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('BACKGROUND5.JPG'); /* Replace with your background image path */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .centered-image {
+            
+        
+            display: none; /* Hides the image */
+    
+        }
+    </style>
+</head>
+<body>
+    
+</script>
+    <img id="image" src="Image_Dragon.jpg" alt="Centered Image" class="centered-image"> <!-- Replace with your image path -->
+
+    <script>
+        // Listen for any key press on the webpage
+        document.addEventListener('keydown', function() {
+            // Store the image path in localStorage
+            const imagePath = document.getElementById('image').src;
+            localStorage.setItem('imagePath', imagePath); // Save image path in localStorage
+
+            
+        });
+    </script>
+    <script>
+    // Listen for any key press on the webpage
+    document.addEventListener('keydown', function() {
+        // Redirect to another webpage (replace 'other-page.html' with your target URL)
+        window.location.href = 'puzzle.html'; // Change 'other-page.html' to your target page URL
+    });
+    </script>
+</body>
+</html>

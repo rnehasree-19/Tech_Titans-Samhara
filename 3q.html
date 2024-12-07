@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Quiz with Background</title>
+    <style>
+        body {
+            margin: 0; /* Removes default margin */
+            height: 100vh; /* Sets the body height to 100% of the viewport height */
+            display: flex; /* Enables flexbox */
+            justify-content: center; /* Centers horizontally */
+            align-items: center; /* Centers vertically */
+            background-image: url('BACKGROUND3.jpg'); /* Replace with your image path */
+            background-size: cover; /* Ensures the image covers the entire screen */
+            background-repeat: no-repeat; /* Prevents repeating */
+            background-position: center; /* Centers the image */
+            font-family: Arial, sans-serif;
+        }
+        .question h3 {
+            margin: 0 0 10px;
+            font-weight: bold; /* Makes the question bold */
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold; /* Makes the options bold */
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+   
+</script>
+    <div class="quiz-container">
+        
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <h3> 3) Who killed Jalandhara ?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="Parvathi">Parvathi</label>
+                    <label><input type="radio" name="q3" value="Shiva"> Shiva</label>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="button" class="btn" onclick="calculateScore()">Submit</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateScore() {
+            // Correct answers
+            const correctAnswers = {
+                q3: "Shiva"
+            };
+
+            let score = 0;
+            const form = document.getElementById('quizForm');
+
+            // Check answers
+            for (let question in correctAnswers) {
+                const userAnswer = form[question].value;
+                if (userAnswer === correctAnswers[question]) {
+                    score++;
+                }
+            }
+
+           
+            // Redirect to another webpage (replace 'other-page.html' with your desired URL)
+            setTimeout(function() {
+                window.location.href = 'part3.html'; // Change 'other-page.html' to your target page
+            }, 2000); // Wait for 2 seconds before redirecting
+        }
+    </script>
+</body>
+</html>

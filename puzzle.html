@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Puzzle</title>
+    <style>
+        #parts-container {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+        .part {
+            width: 100px; /* Adjust the width to match the size of each part */
+            height: 200px; /* Adjust height according to the actual image size */
+            background-repeat: no-repeat;
+            background-size: 500px 200px; /* Ensure the full image fits across all parts */
+            cursor: grab;
+            border: 1px solid black;
+        }
+        /* Set background positions to simulate cropping the image into 5 vertical strips */
+        .part-1 { background-position: 0 0; }
+        .part-2 { background-position: -100px 0; }
+        .part-3 { background-position: -200px 0; }
+        .part-4 { background-position: -300px 0; }
+        .part-5 { background-position: -400px 0; }
+    </style>
+    <script>
+        let draggedElement = null;
+        let startTime, timerInterval;
+
+        // Drag-and-drop functions
+        function handleDragStart(e) {
+            draggedElement = this;
+            setTimeout(() => (this.style.display = "none"), 0); // Hide element briefly
+        }
+
+        function handleDragEnd() {
+            draggedElement.style.display = "block"; // Restore visibility
+            draggedElement = null;
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault(); // Allow drop
+        }
+
+        function handleDrop(e) {
+            e.preventDefault(); // Prevent default behavior
+            if (this !== draggedElement) {
+                const container = this.parentNode;
+                const draggedIndex = Array.from(container.children).indexOf(draggedElement);
+                const targetIndex = Array.from(container.children).indexOf(this);
+
+                // Swap positions
+                if (draggedIndex > targetIndex) {
+                    container.insertBefore(draggedElement, this);
+                } else {
+                    container.insertBefore(draggedElement, this.nextSibling);
+                }
+            }
+        }
+
+        // Timer and game control
+        function startGame() {
+            // Shuffle parts
+            const container = document.getElementById('parts-container');
+            for (let i = container.children.length; i >= 0; i--) {
+                container.appendChild(container.children[Math.random() * i | 0]);
+            }
+            // Start timer
+            startTime = new Date();
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((new Date() - startTime) / 1000);
+                document.getElementById('timer').textContent = `Time: ${elapsed}s`;
+            }, 1000);
+        }
+
+        function checkSolution() {
+            const container = document.getElementById('parts-container');
+            const parts = Array.from(container.children);
+            const correctOrder = parts.every((part, index) => part.dataset.order == index + 1);
+
+            if (correctOrder) {
+                clearInterval(timerInterval);
+                const elapsed = Math.floor((new Date() - startTime) / 1000);
+                alert(`You rearranged correctly! You won in ${elapsed} seconds.`);
+                window.location.href = "burn.html"; 
+            } else {
+                alert('Incorrect arrangement! Try again.');
+            }
+        }
+
+        // Set image parts dynamically
+        window.onload = function() {
+            const imagePath = localStorage.getItem('imagePath');
+            if (imagePath) {
+                const parts = document.getElementsByClassName('part');
+                for (let i = 0; i < parts.length; i++) {
+                    parts[i].style.backgroundImage = `url('${imagePath}')`;
+                }
+            }
+            // Shuffle parts on page load
+            startGame();
+        };
+    </script>
+</head>
+<body>
+    <h1>Rearrange the Image</h1>
+    <div id="parts-container">
+        <!-- Each div represents a part of the image -->
+        <div class="part part-1" data-order="1" draggable="true"
+            ondragstart="handleDragStart.call(this, event)"
+            ondragend="handleDragEnd.call(this, event)"
+            ondragover="handleDragOver.call(this, event)"
+            ondrop="handleDrop.call(this, event)"></div>
+        <div class="part part-2" data-order="2" draggable="true"
+            ondragstart="handleDragStart.call(this, event)"
+            ondragend="handleDragEnd.call(this, event)"
+            ondragover="handleDragOver.call(this, event)"
+            ondrop="handleDrop.call(this, event)"></div>
+        <div class="part part-3" data-order="3" draggable="true"
+            ondragstart="handleDragStart.call(this, event)"
+            ondragend="handleDragEnd.call(this, event)"
+            ondragover="handleDragOver.call(this, event)"
+            ondrop="handleDrop.call(this, event)"></div>
+        <div class="part part-4" data-order="4" draggable="true"
+            ondragstart="handleDragStart.call(this, event)"
+            ondragend="handleDragEnd.call(this, event)"
+            ondragover="handleDragOver.call(this, event)"
+            ondrop="handleDrop.call(this, event)"></div>
+        <div class="part part-5" data-order="5" draggable="true"
+            ondragstart="handleDragStart.call(this, event)"
+            ondragend="handleDragEnd.call(this, event)"
+            ondragover="handleDragOver.call(this, event)"
+            ondrop="handleDrop.call(this, event)"></div>
+    </div>
+    <button onclick="startGame()">Start</button>
+    <p id="timer">Time: 0s</p>
+    <button onclick="checkSolution()">Submit</button>
+</body>
+</html>
